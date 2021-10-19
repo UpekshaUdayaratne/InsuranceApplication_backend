@@ -1,5 +1,7 @@
 package com.ead.backend.controller;
 
+import java.util.List;
+
 import com.ead.backend.model.PolicyPlan;
 import com.ead.backend.repository.PolicyPlanRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +22,7 @@ public class PolicyPlanController {
     }
 
     @PostMapping("/updatepolicyplan")
-    public String updateCustomer(@RequestBody PolicyPlan policyplan) {
+    public String updatePolicyPlan(@RequestBody PolicyPlan policyplan) {
         policyplanRepository.save(policyplan);
         return "updated policy plan!";
     }
@@ -28,5 +30,16 @@ public class PolicyPlanController {
     @GetMapping("/policyplanlist")
     public Iterable<PolicyPlan> getPolicyPlans() {
         return policyplanRepository.findAll();
+    }
+
+    @GetMapping("/policynames")
+    public List<String> getPolicyNames() {
+        return policyplanRepository.getPolicyNameList();
+    }
+
+    @PostMapping("/deletepolicyplan")
+    public String deletePolicyPlan(@RequestBody PolicyPlan policyplan) {
+        policyplanRepository.deleteById(policyplan.getId());
+        return "Deleted policy plan!";
     }
 }
